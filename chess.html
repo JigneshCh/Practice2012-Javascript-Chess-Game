@@ -1,0 +1,2487 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>chess..........</title>
+<style type="text/css">
+
+</style>
+</head>
+<script type="text/javascript">
+var q=1,p=4,c=0,z,qcan=0,cj=1,ci=3,c2j=1,c2i=6,turn=0,ok=0;
+var ej=1,ei=1,j,i,e2i=8,e2j=1,ki=5,kj=1,h2i=7,h2j=1,hi=2,hj=1,bkj=8,bki=5,jpi=7,ipi=1;
+var jpi2=7,ipi2=2,jpi3=7,ipi3=3,jpi4=7,ipi4=4,jpi5=7,ipi5=5,jpi6=7,ipi6=6,jpi7=7,ipi7=7,jpi8=7,ipi8=8;
+var wjpi1=2,wipi1=1,wjpi2=2,wipi2=2,wjpi3=2,wipi3=3,wjpi4=2,wipi4=4,wjpi5=2,wipi5=5,wjpi6=2,wipi6=6,wjpi7=2,wipi7=7,wjpi8=2,wipi8=8;
+var bei=1,bej=8,bhj=8,bhi=2,bcj=8,bci=3,bqj=8,bqi=4,bc2j=8,bc2i=6,bh2i=7,bh2j=8,be2i=8,be2j=8;
+var qcanwak=new Array(20);
+var white_at=new Array(16);
+var black_at=new Array(16);
+white_at[0]=11;
+white_at[1]=12;
+white_at[2]=13;
+white_at[3]=14;
+white_at[4]=15;
+white_at[5]=16;
+white_at[6]=17;
+white_at[7]=18;
+white_at[8]=21;
+white_at[9]=22;
+white_at[10]=23;
+white_at[11]=24;
+white_at[12]=25;
+white_at[13]=26;
+white_at[14]=27;
+white_at[15]=28;
+var whiteis=0,blackis=0;
+
+black_at[0]=81;
+black_at[1]=82;
+black_at[2]=83;
+black_at[3]=84;
+black_at[4]=85;
+black_at[5]=86;
+black_at[6]=87;
+black_at[7]=88;
+black_at[8]=71;
+black_at[9]=72;
+black_at[10]=73;
+black_at[11]=74;
+black_at[12]=75;
+black_at[13]=76;
+black_at[14]=77;
+black_at[15]=78;
+
+var moov_turn=0;
+function kingwalk(j,i)
+{
+			
+	if(i<9 && i>0 && j>0 && j<9)
+	{
+	        for(d=0;d<=15;d++)
+
+			{
+					if(white_at[d]==""+j+""+i)
+					{
+						whiteis=1;
+						
+					}			
+					else if(black_at[d]==""+j+""+i)
+					{
+							blackis=1;
+							document.getElementById(''+j+""+i).bgColor="red";	
+							document.getElementById(''+j+""+i+"2").bgColor="red";	
+							qcanwak[c]=j+""+i;
+							c++;
+					}
+			}
+			
+			if(whiteis!=1 && blackis!=1)
+			{
+				qcanwak[c]=j+""+i;
+			
+				document.getElementById(''+j+""+i).bgColor="yellow";
+				document.getElementById(''+j+""+i+"2").bgColor="yellow";
+				c++;
+			}
+			
+			
+		
+
+	whiteis=0;
+	blackis=0;		
+	}
+}
+function bkingwalk(j,i)
+{
+			
+	if(i<9 && i>0 && j>0 && j<9)
+	{
+	        for(d=0;d<=15;d++)
+
+			{
+					if(black_at[d]==""+j+""+i)
+					{
+						blackis=1;
+						
+					}			
+					else if(white_at[d]==""+j+""+i)
+					{
+							whiteis=1;
+							document.getElementById(''+j+""+i).bgColor="red";	
+							document.getElementById(''+j+""+i+"2").bgColor="red";	
+							qcanwak[c]=j+""+i;
+							c++;
+					}
+			}
+			
+			if(whiteis!=1 && blackis!=1)
+			{
+				qcanwak[c]=j+""+i;
+			
+				document.getElementById(''+j+""+i).bgColor="yellow";
+				document.getElementById(''+j+""+i+"2").bgColor="yellow";
+				c++;
+			}
+			
+			
+		
+
+	whiteis=0;
+	blackis=0;		
+	}
+}
+
+
+function right(j,i)
+{
+			
+	for(i;i<=8;i++)			
+	{	
+	if(whiteis!=1 && blackis!=1)
+	{
+	        for(d=0;d<=15;d++)
+
+			{
+					if(white_at[d]==""+j+""+i)
+					{
+						whiteis=1;
+						
+					}			
+					else if(black_at[d]==""+j+""+i)
+					{
+							blackis=1;
+							document.getElementById(''+j+""+i).bgColor="red";	
+							document.getElementById(''+j+""+i+"2").bgColor="red";	
+							qcanwak[c]=j+""+i;
+							c++;
+					}
+			}
+			
+			if(whiteis!=1 && blackis!=1)
+			{
+				qcanwak[c]=j+""+i;
+			
+				document.getElementById(''+j+""+i).bgColor="yellow";
+				document.getElementById(''+j+""+i+"2").bgColor="yellow";
+				c++;
+			}
+			
+			
+		
+	}
+	}
+	whiteis=0;
+	blackis=0;		//-----------------------select position in right side---------------------
+}
+function left(j,i)
+{
+					
+			for(i;i>=1;i--)    
+	{
+	if(whiteis!=1 && blackis!=1)
+	{
+			for(d=0;d<=15;d++)
+
+			{
+					if(white_at[d]==""+j+""+i)
+					{
+						whiteis=1;
+					}
+					else if(black_at[d]==""+j+""+i)
+					{
+							blackis=1;
+							document.getElementById(''+j+""+i).bgColor="red";	
+							document.getElementById(''+j+""+i+"2").bgColor="red";	
+							qcanwak[c]=j+""+i;
+							c++;
+					}			
+			}
+			if(whiteis!=1 && blackis!=1)
+			{
+				qcanwak[c]=j+""+i;
+				c++;
+				document.getElementById(''+j+""+i).bgColor="yellow";
+				document.getElementById(''+j+""+i+"2").bgColor="yellow";
+			}
+			
+			
+	}	
+	}
+	whiteis=0;
+	blackis=0;		  //-----------------------select position in left side---------------------
+}
+function botom(j,i)
+{
+			
+				for(j;j<=8;j++)       
+	{
+	if(whiteis!=1 && blackis!=1)
+	{
+			for(d=0;d<=15;d++)
+
+			{
+					if(white_at[d]==""+j+""+i)
+					{
+						whiteis=1;
+					}
+					else if(black_at[d]==""+j+""+i)
+					{
+							blackis=1;
+							document.getElementById(''+j+""+i).bgColor="red";		
+							document.getElementById(''+j+""+i+"2").bgColor="red";
+							qcanwak[c]=j+""+i;
+							c++;
+							
+					}			
+			}
+			if(whiteis!=1 && blackis!=1)
+			{
+					qcanwak[c]=j+""+i;
+					c++;
+					document.getElementById(''+j+""+i).bgColor="yellow";
+					document.getElementById(''+j+""+i+"2").bgColor="yellow";
+			}
+			
+			d=0;
+	}
+	}
+	whiteis=0;
+	blackis=0;			//-----------------------select position in bottom  side--------------------- 
+}
+function top(j,i)
+{
+		
+			for(j;j>=1;j--)    
+	{
+	if(whiteis!=1 && blackis!=1)
+	{
+	
+			for(d=0;d<=15;d++)
+
+			{
+					if(white_at[d]==""+j+""+i)
+					{
+						whiteis=1;
+					}
+					else if(black_at[d]==""+j+""+i)
+					{
+							blackis=1;
+							document.getElementById(''+j+""+i).bgColor="red";		
+								document.getElementById(''+j+""+i+"2").bgColor="red";
+							qcanwak[c]=j+""+i;
+							c++;
+					}			
+			}
+			if(whiteis!=1 && blackis!=1)
+			{
+
+				qcanwak[c]=j+""+i;
+				c++;
+				document.getElementById(''+j+""+i).bgColor="yellow";
+				document.getElementById(''+j+""+i+"2").bgColor="yellow";
+			}
+			
+			d=0;
+	}
+	}
+	whiteis=0;
+	blackis=0;			  //-----------------------select position in top side--------------------- 
+}
+function rightbotom(j,i)
+{
+		
+			for(j;j<=8;j++)    
+	{
+	if(whiteis!=1 && blackis!=1)
+	{
+		
+		if(i<9)
+		{
+				for(d=0;d<=15;d++)
+
+				{
+					if(white_at[d]==""+j+""+i)
+					{
+						whiteis=1;
+					}
+					else if(black_at[d]==""+j+""+i)
+					{
+							blackis=1;
+							document.getElementById(''+j+""+i).bgColor="red";	
+							document.getElementById(''+j+""+i+"2").bgColor="red";	
+							qcanwak[c]=j+""+i;
+							c++;
+					}			
+				}
+				if(whiteis!=1 && blackis!=1)
+				{
+
+					qcanwak[c]=j+""+i;
+					c++;
+					document.getElementById(''+j+""+i).bgColor="yellow";
+					document.getElementById(''+j+""+i+"2").bgColor="yellow";
+				}
+				
+				d=0;
+		}
+		i++;
+	}
+	}
+	whiteis=0;
+	blackis=0;					  //-----------------------select position in right and botom corner side---------------------	
+}
+function leftbotom(j,i)
+{
+		
+	
+	for(j;j<=8;j++)
+	{
+	if(whiteis!=1 && blackis!=1)
+	{
+		
+		if(i>0)
+		{
+				for(d=0;d<=15;d++)
+
+				{
+					if(white_at[d]==""+j+""+i)
+					{
+						whiteis=1;
+					}
+					else if(black_at[d]==""+j+""+i)
+					{
+							blackis=1;
+								document.getElementById(''+j+""+i).bgColor="red";
+								document.getElementById(''+j+""+i+"2").bgColor="red";
+								qcanwak[c]=j+""+i;
+								c++;
+							
+					}			
+				}
+				if(whiteis!=1 && blackis!=1)
+				{
+					qcanwak[c]=j+""+i;
+					c++;
+					document.getElementById(''+j+""+i).bgColor="yellow";
+					document.getElementById(''+j+""+i+"2").bgColor="yellow";
+				}
+				
+				d=0;
+		}
+		i--;
+	}
+	}
+	whiteis=0;
+	blackis=0;						//-----------------------select position in left and bottom corner side---------------------
+}
+function righttop(j,i)
+{		
+			
+			for(j;j>=1;j--)				
+	{
+	if(whiteis!=1 && blackis!=1)
+	{
+		
+		if(i<9)
+		{
+				for(d=0;d<=15;d++)
+
+				{
+					if(white_at[d]==""+j+""+i)
+					{
+						whiteis=1;
+					}
+					else if(black_at[d]==""+j+""+i)
+					{
+							blackis=1;
+								document.getElementById(''+j+""+i).bgColor="red";
+								document.getElementById(''+j+""+i+"2").bgColor="red";
+								qcanwak[c]=j+""+i;
+								c++;
+					}			
+				}
+				if(whiteis!=1 && blackis!=1)
+				{
+					qcanwak[c]=j+""+i;
+					c++;
+					document.getElementById(''+j+""+i).bgColor="yellow";
+					document.getElementById(''+j+""+i+"2").bgColor="yellow";
+				}
+				
+				d=0;
+		}
+		i++;
+	}
+	}
+	whiteis=0;
+	blackis=0;			//-----------------------select position in right and top corner side---------------------
+}
+function lefttop(j,i)
+{
+
+		
+			for(j;j>=1;j--)
+	{
+	if(whiteis!=1 && blackis!=1)
+	{
+		
+		if(i>0)
+		{
+				for(d=0;d<=15;d++)
+
+				{
+					if(white_at[d]==""+j+""+i)
+					{
+						whiteis=1;
+					}
+					else if(black_at[d]==""+j+""+i)
+					{
+							blackis=1;
+								document.getElementById(''+j+""+i).bgColor="red";
+								document.getElementById(''+j+""+i+"2").bgColor="red";
+								qcanwak[c]=j+""+i;
+								c++;
+					}			
+				}
+				if(whiteis!=1 && blackis!=1)
+				{
+					qcanwak[c]=j+""+i;
+					c++;
+					document.getElementById(''+j+""+i).bgColor="yellow";
+					document.getElementById(''+j+""+i+"2").bgColor="yellow";
+				}
+				
+				d=0;
+		}
+		i--;
+	}
+	}
+	whiteis=0;
+	blackis=0;			 //-----------------------select position in left and top corner  side---------------------
+}
+function horsepos(j,i)
+{
+
+		if(i>0 && i<9 && j>0 && j<9)
+		{		
+				for(d=0;d<=15;d++)
+
+				{
+					if(white_at[d]==""+j+""+i)
+					{
+						whiteis=1;
+					}
+					else if(black_at[d]==""+j+""+i)
+					{
+							blackis=1;
+								document.getElementById(''+j+""+i).bgColor="red";
+								document.getElementById(''+j+""+i+"2").bgColor="red";
+								qcanwak[c]=j+""+i;
+								c++;
+					}			
+				}
+				if(whiteis!=1 && blackis!=1)
+				{
+					qcanwak[c]=j+""+i;
+					c++;
+					document.getElementById(''+j+""+i).bgColor="yellow";
+					document.getElementById(''+j+""+i+"2").bgColor="yellow";
+				}
+				
+				d=0;
+		}
+	whiteis=0;
+	blackis=0;			 //-----------------------select position all side---------------------
+}   //    white
+function bright(j,i)
+{
+			
+	for(i;i<=8;i++)			
+	{	
+	if(whiteis!=1 && blackis!=1)
+	{
+	        for(d=0;d<=15;d++)
+
+			{
+					if(black_at[d]==""+j+""+i)
+					{
+						blackis=1;
+						
+					}			
+					else if(white_at[d]==""+j+""+i)
+					{
+							whiteis=1;
+							document.getElementById(''+j+""+i).bgColor="red";	
+							document.getElementById(''+j+""+i+"2").bgColor="red";	
+							qcanwak[c]=j+""+i;
+							c++;
+					}
+			}
+			
+			if(whiteis!=1 && blackis!=1)
+			{
+				qcanwak[c]=j+""+i;
+			
+				document.getElementById(''+j+""+i).bgColor="yellow";
+				document.getElementById(''+j+""+i+"2").bgColor="yellow";
+				c++;
+			}
+			
+			
+		
+	}
+	}
+	whiteis=0;
+	blackis=0;		//-----------------------select position in right side---------------------
+}
+function bleft(j,i)
+{
+					
+			for(i;i>=1;i--)    
+	{
+	if(whiteis!=1 && blackis!=1)
+	{
+			for(d=0;d<=15;d++)
+
+			{
+					if(black_at[d]==""+j+""+i)
+					{
+						blackis=1;
+					}
+					else if(white_at[d]==""+j+""+i)
+					{
+							whiteis=1;
+							document.getElementById(''+j+""+i).bgColor="red";	
+							document.getElementById(''+j+""+i+"2").bgColor="red";	
+							qcanwak[c]=j+""+i;
+							c++;
+					}			
+			}
+			if(whiteis!=1 && blackis!=1)
+			{
+				qcanwak[c]=j+""+i;
+				c++;
+				document.getElementById(''+j+""+i).bgColor="yellow";
+				document.getElementById(''+j+""+i+"2").bgColor="yellow";
+			}
+			
+			
+	}	
+	}
+	whiteis=0;
+	blackis=0;		  //-----------------------select position in left side---------------------
+}
+function bbotom(j,i)
+{
+			
+				for(j;j<=8;j++)       
+	{
+	if(whiteis!=1 && blackis!=1)
+	{
+			for(d=0;d<=15;d++)
+
+			{
+					if(black_at[d]==""+j+""+i)
+					{
+						blackis=1;
+					}
+					else if(white_at[d]==""+j+""+i)
+					{
+							whiteis=1;
+							document.getElementById(''+j+""+i).bgColor="red";		
+							document.getElementById(''+j+""+i+"2").bgColor="red";
+							qcanwak[c]=j+""+i;
+							c++;
+							
+					}			
+			}
+			if(whiteis!=1 && blackis!=1)
+			{
+					qcanwak[c]=j+""+i;
+					c++;
+					document.getElementById(''+j+""+i).bgColor="yellow";
+					document.getElementById(''+j+""+i+"2").bgColor="yellow";
+			}
+			
+			d=0;
+	}
+	}
+	whiteis=0;
+	blackis=0;			//-----------------------select position in bottom  side--------------------- 
+}
+function btop(j,i)
+{
+		
+			for(j;j>=1;j--)    
+	{
+	if(whiteis!=1 && blackis!=1)
+	{
+	
+			for(d=0;d<=15;d++)
+
+			{
+					if(black_at[d]==""+j+""+i)
+					{
+						blackis=1;
+					}
+					else if(white_at[d]==""+j+""+i)
+					{
+							whiteis=1;
+							document.getElementById(''+j+""+i).bgColor="red";		
+								document.getElementById(''+j+""+i+"2").bgColor="red";
+							qcanwak[c]=j+""+i;
+							c++;
+					}			
+			}
+			if(whiteis!=1 && blackis!=1)
+			{
+
+				qcanwak[c]=j+""+i;
+				c++;
+				document.getElementById(''+j+""+i).bgColor="yellow";
+				document.getElementById(''+j+""+i+"2").bgColor="yellow";
+			}
+			
+			d=0;
+	}
+	}
+	whiteis=0;
+	blackis=0;			  //-----------------------select position in top side--------------------- 
+}
+function brightbotom(j,i)
+{
+		
+			for(j;j<=8;j++)    
+	{
+	if(whiteis!=1 && blackis!=1)
+	{
+		
+		if(i<9)
+		{
+				for(d=0;d<=15;d++)
+
+				{
+					if(black_at[d]==""+j+""+i)
+					{
+						blackis=1;
+					}
+					else if(white_at[d]==""+j+""+i)
+					{
+							whiteis=1;
+							document.getElementById(''+j+""+i).bgColor="red";	
+							document.getElementById(''+j+""+i+"2").bgColor="red";	
+							qcanwak[c]=j+""+i;
+							c++;
+					}			
+				}
+				if(whiteis!=1 && blackis!=1)
+				{
+
+					qcanwak[c]=j+""+i;
+					c++;
+					document.getElementById(''+j+""+i).bgColor="yellow";
+					document.getElementById(''+j+""+i+"2").bgColor="yellow";
+				}
+				
+				d=0;
+		}
+		i++;
+	}
+	}
+	whiteis=0;
+	blackis=0;					  //-----------------------select position in right and botom corner side---------------------	
+}
+function bleftbotom(j,i)
+{
+		
+	
+	for(j;j<=8;j++)
+	{
+	if(whiteis!=1 && blackis!=1)
+	{
+		
+		if(i>0)
+		{
+				for(d=0;d<=15;d++)
+
+				{
+					if(black_at[d]==""+j+""+i)
+					{
+						blackis=1;
+					}
+					else if(white_at[d]==""+j+""+i)
+					{
+							whiteis=1;
+								document.getElementById(''+j+""+i).bgColor="red";
+								document.getElementById(''+j+""+i+"2").bgColor="red";
+								qcanwak[c]=j+""+i;
+								c++;
+							
+					}			
+				}
+				if(whiteis!=1 && blackis!=1)
+				{
+					qcanwak[c]=j+""+i;
+					c++;
+					document.getElementById(''+j+""+i).bgColor="yellow";
+					document.getElementById(''+j+""+i+"2").bgColor="yellow";
+				}
+				
+				d=0;
+		}
+		i--;
+	}
+	}
+	whiteis=0;
+	blackis=0;						//-----------------------select position in left and bottom corner side---------------------
+}
+function brighttop(j,i)
+{		
+			
+			for(j;j>=1;j--)				
+	{
+	if(whiteis!=1 && blackis!=1)
+	{
+		
+		if(i<9)
+		{
+				for(d=0;d<=15;d++)
+
+				{
+					if(black_at[d]==""+j+""+i)
+					{
+						blackis=1;
+					}
+					else if(white_at[d]==""+j+""+i)
+					{
+							whiteis=1;
+								document.getElementById(''+j+""+i).bgColor="red";
+								document.getElementById(''+j+""+i+"2").bgColor="red";
+								qcanwak[c]=j+""+i;
+								c++;
+					}			
+				}
+				if(whiteis!=1 && blackis!=1)
+				{
+					qcanwak[c]=j+""+i;
+					c++;
+					document.getElementById(''+j+""+i).bgColor="yellow";
+					document.getElementById(''+j+""+i+"2").bgColor="yellow";
+				}
+				
+				d=0;
+		}
+		i++;
+	}
+	}
+	whiteis=0;
+	blackis=0;			//-----------------------select position in right and top corner side---------------------
+}
+function blefttop(j,i)
+{
+
+		
+			for(j;j>=1;j--)
+	{
+	if(whiteis!=1 && blackis!=1)
+	{
+		
+		if(i>0)
+		{
+				for(d=0;d<=15;d++)
+
+				{
+					if(black_at[d]==""+j+""+i)
+					{
+						blackis=1;
+					}
+					else if(white_at[d]==""+j+""+i)
+					{
+							whiteis=1;
+								document.getElementById(''+j+""+i).bgColor="red";
+								document.getElementById(''+j+""+i+"2").bgColor="red";
+								qcanwak[c]=j+""+i;
+								c++;
+					}			
+				}
+				if(whiteis!=1 && blackis!=1)
+				{
+					qcanwak[c]=j+""+i;
+					c++;
+					document.getElementById(''+j+""+i).bgColor="yellow";
+					document.getElementById(''+j+""+i+"2").bgColor="yellow";
+				}
+				
+				d=0;
+		}
+		i--;
+	}
+	}
+	whiteis=0;
+	blackis=0;			 //-----------------------select position in left and top corner  side---------------------
+}
+function bhorsepos(j,i)
+{
+
+		if(i>0 && i<9 && j>0 && j<9)
+		{		
+				for(d=0;d<=15;d++)
+
+				{
+					if(black_at[d]==""+j+""+i)
+					{
+						blackis=1;
+					}
+					else if(white_at[d]==""+j+""+i)
+					{
+							whiteis=1;
+								document.getElementById(''+j+""+i).bgColor="red";
+								document.getElementById(''+j+""+i+"2").bgColor="red";
+								qcanwak[c]=j+""+i;
+								c++;
+					}			
+				}
+				if(whiteis!=1 && blackis!=1)
+				{
+					qcanwak[c]=j+""+i;
+					c++;
+					document.getElementById(''+j+""+i).bgColor="yellow";
+					document.getElementById(''+j+""+i+"2").bgColor="yellow";
+				}
+				
+				d=0;
+		}
+	whiteis=0;
+	blackis=0;			 //-----------------------select position all side---------------------
+}
+function bpidal(j,i)
+{
+					var xi=i+1,xj=j-1,x2i=i-1;;
+					if(xi<9)
+					{
+						for(d=0;d<=15;d++)
+
+						{
+							 if(white_at[d]==""+xj+""+xi)
+							{
+									
+									document.getElementById(''+xj+""+xi).bgColor="red";		
+									document.getElementById(''+xj+""+xi+"2").bgColor="red";
+									qcanwak[c]=xj+""+xi;
+									c++;
+							}			
+						}
+					}
+					if(x2i>0)
+					{
+						for(d=0;d<=15;d++)
+
+						{
+							 if(white_at[d]==""+xj+""+x2i)
+							{
+									
+									document.getElementById(''+xj+""+x2i).bgColor="red";		
+									document.getElementById(''+xj+""+x2i+"2").bgColor="red";
+									qcanwak[c]=xj+""+x2i;
+									c++;
+							}			
+						}
+					}
+		if(j==7)
+		{
+			
+			for(j=6;j>=5;j--)    
+			{
+				if(whiteis!=1 && blackis!=1)
+				{
+	
+					for(d=0;d<=15;d++)
+
+					{
+						if(black_at[d]==""+j+""+i)
+						{
+							blackis=1;
+						}
+						else if(white_at[d]==""+j+""+i)
+						{
+								whiteis=1;
+						
+						}			
+					}
+					if(whiteis!=1 && blackis!=1)
+					{
+	
+						qcanwak[c]=j+""+i;
+						c++;
+						document.getElementById(''+j+""+i).bgColor="yellow";
+						document.getElementById(''+j+""+i+"2").bgColor="yellow";
+					}
+			
+					d=0;
+				}
+			}
+			whiteis=0;
+			blackis=0;			  
+		}
+		else
+		{
+					j=j-1;
+					for(d=0;d<=15;d++)
+
+					{
+						if(black_at[d]==""+j+""+i)
+						{
+							blackis=1;
+						}
+						else if(white_at[d]==""+j+""+i)
+						{
+								whiteis=1;
+							
+						}			
+					}
+					if(whiteis!=1 && blackis!=1)
+					{
+	
+						qcanwak[c]=j+""+i;
+						c++;
+						document.getElementById(''+j+""+i).bgColor="yellow";
+						document.getElementById(''+j+""+i+"2").bgColor="yellow";
+					}
+		}
+		whiteis=0;
+			blackis=0;	
+}
+function wpidal(j,i)
+{
+					var xi=i+1,xj=j+1,x2i=i-1;;
+					if(xi<9)
+					{
+						for(d=0;d<=15;d++)
+
+						{
+							 if(black_at[d]==""+xj+""+xi)
+							{
+									
+									document.getElementById(''+xj+""+xi).bgColor="red";		
+									document.getElementById(''+xj+""+xi+"2").bgColor="red";
+									qcanwak[c]=xj+""+xi;
+									c++;
+							}			
+						}
+					}
+					if(x2i>0)
+					{
+						for(d=0;d<=15;d++)
+
+						{
+							 if(black_at[d]==""+xj+""+x2i)
+							{
+									
+									document.getElementById(''+xj+""+x2i).bgColor="red";		
+									document.getElementById(''+xj+""+x2i+"2").bgColor="red";
+									qcanwak[c]=xj+""+x2i;
+									c++;
+							}			
+						}
+					}
+		if(j==2)
+		{
+			
+			for(j=3;j<=4;j++)    
+			{
+				if(whiteis!=1 && blackis!=1)
+				{
+	
+					for(d=0;d<=15;d++)
+
+					{
+						if(black_at[d]==""+j+""+i)
+						{
+							blackis=1;
+						}
+						else if(white_at[d]==""+j+""+i)
+						{
+								whiteis=1;
+						
+						}			
+					}
+					if(whiteis!=1 && blackis!=1)
+					{
+	
+						qcanwak[c]=j+""+i;
+						c++;
+						document.getElementById(''+j+""+i).bgColor="yellow";
+						document.getElementById(''+j+""+i+"2").bgColor="yellow";
+					}
+			
+					d=0;
+				}
+			}
+			whiteis=0;
+			blackis=0;			  
+		}
+		else
+		{
+					j=j+1;
+					for(d=0;d<=15;d++)
+
+					{
+						if(black_at[d]==""+j+""+i)
+						{
+							blackis=1;
+						}
+						else if(white_at[d]==""+j+""+i)
+						{
+								whiteis=1;
+							
+						}			
+					}
+					if(whiteis!=1 && blackis!=1)
+					{
+	
+						qcanwak[c]=j+""+i;
+						c++;
+						document.getElementById(''+j+""+i).bgColor="yellow";
+						document.getElementById(''+j+""+i+"2").bgColor="yellow";
+					}
+		}
+		whiteis=0;
+			blackis=0;	
+}
+function iskillanyblack(a,b)
+{
+			
+				 
+						
+						for(d=0;d<16;d++)
+						{
+							if(black_at[d]==""+a+""+b)
+							{
+								
+								black_at[d]=100;
+								document.getElementById('bb'+d).innerHTML="DETH";
+					
+							}
+						}
+						if(black_at[4]==100)
+						{
+							for(d=0;d<16;d++)
+							{
+								document.getElementById('bb'+d).innerHTML="";
+								document.getElementById('wb'+d).innerHTML="";
+							}
+							alert("#######---------WHITE WON---------########### ");
+							
+							for(j=1;j<=8;j++)
+							{
+								for(i=1;i<=8;i++)
+								{
+			
+					
+									for(d=0;d<16;d++)
+									{
+										if(black_at[d]==""+j+""+i)
+										{
+											
+											document.getElementById(''+j+""+i).innerHTML="";
+				
+										}
+			
+				
+									}
+								}
+							}
+							
+							
+						}
+	
+												
+}
+function iskillanywhite(a,b)
+{
+			
+				 
+						
+						for(d=0;d<16;d++)
+						{
+							if(white_at[d]==""+a+""+b)
+							{
+								
+								white_at[d]=100;
+								document.getElementById('wb'+d).innerHTML="DETH";
+					
+							}
+						}
+						if(white_at[4]==100)
+						{
+							for(d=0;d<16;d++)
+							{
+								document.getElementById('wb'+d).innerHTML="";
+								document.getElementById('bb'+d).innerHTML="";
+							}
+							alert("#######---------BLACK WON---------########### ");
+								for(j=1;j<=8;j++)
+								{
+									for(i=1;i<=8;i++)
+									{
+			
+										
+										for(d=0;d<16;d++)
+										{
+											if(white_at[d]==""+j+""+i)
+											{
+					
+												document.getElementById(''+j+""+i).innerHTML="";
+					
+				
+											}
+				
+										}
+									}
+								}
+
+						}
+											
+					
+}
+
+
+function wquen(s)
+{
+		if(turn==0)
+		{
+			if(s==11 || s==12 || s==13 || s==14 || s==15 || s==16 || s==17 || s==18 || s==21 || s==22 || s==23 || s==24 || s==25 || s==26 || s==27 || s==28)
+			{
+				ok=1;
+			}
+			else
+			{
+				alert("It is white's turn");
+				return true;
+			}
+		}
+		if(turn==1)
+		{
+			if(s==11 || s==12 || s==13 || s==14 || s==15 || s==16 || s==17 || s==18 || s==21 || s==22 || s==23 || s==24 || s==25 || s==26 || s==27 || s==28)
+			{
+				alert("It is black's turn");
+				return true;
+			}
+			else
+			{
+				ok=0;
+			}
+		}
+	
+		
+		for(j=1;j<=8;j++)
+				{
+					for(i=1;i<=8;i++)
+					{
+					if(j==1||j==3|j==5||j==7)
+					{
+						if(i%2==0)
+						{
+								document.getElementById(''+j+""+i).bgColor="blue";
+								document.getElementById(''+j+""+i+"2").bgColor="blue";
+						
+						}
+						else
+						{
+							document.getElementById(''+j+""+i).bgColor="pink";
+							document.getElementById(''+j+""+i+"2").bgColor="pink";
+						}
+					}
+					else
+					{
+						if(i%2==0)
+						{
+								document.getElementById(''+j+""+i).bgColor="pink";
+								document.getElementById(''+j+""+i+"2").bgColor="pink";
+						}
+						else
+						{
+							document.getElementById(''+j+""+i).bgColor="blue";
+							document.getElementById(''+j+""+i+"2").bgColor="blue";
+						}
+					}
+					for(d=0;d<16;d++)
+					{
+						if(black_at[d]==""+j+""+i)
+						{
+						
+							document.getElementById(''+j+""+i).bgColor="black";
+				
+						}
+						else if(white_at[d]==""+j+""+i)
+						{
+					
+							document.getElementById(''+j+""+i).bgColor="orenge";
+				
+						}
+				
+					}
+				}
+			}
+					//set color as it is after click of any button...........................
+		c=0;
+	if(s==11)
+	{
+		
+			
+		 j=ej,i=ei;
+		moov_turn=11;//--------------------------------yellow quen selected so after walking only quencan[]=0;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+			i=ei+1;	
+					right(j,i);
+					
+			i=ei-1,j=ej;    
+					left(j,i);
+			
+			i=ei,j=ej+1;     	
+					botom(j,i);		
+				
+			i=ei,j=ej-1;     
+					top(j,i);
+			
+			return true;
+	}
+	else if(s==12)
+	{
+		moov_turn=12;					
+		i=hi,j=hj;
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color yellow caml 2--------------------
+		
+		horsepos(j-1,i+2);
+		horsepos(j+1,i+2);
+		horsepos(j-1,i-2);
+		horsepos(j+1,i-2);
+		horsepos(j+2,i-1);
+		horsepos(j+2,i+1);
+		horsepos(j-2,i+1);
+		horsepos(j-2,i-1);
+		return true;
+	}
+	else if(s==13)
+	{
+					
+						moov_turn=13;					
+						j=cj,i=ci;
+						document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+							i=ci+1,j=cj+1;		
+								rightbotom(j,i);
+			
+						i=ci-1,j=cj+1;	
+								leftbotom(j,i);	
+			
+						i=ci+1,j=cj-1;		
+								righttop(j,i);			
+			
+						i=ci-1,j=cj-1;		
+								lefttop(j,i);
+					
+				return true;
+	}
+	else if(s==14)
+	{
+		
+			
+		
+		moov_turn=14;//--------------------------------yellow quen selected so after walking only quencan[]=0;
+		j=q,i=p;
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+			i=i+1;	
+					right(j,i);
+					
+			i=p-1,j=q;    
+					left(j,i);
+			
+			i=p,j=q+1;     	
+					botom(j,i);		
+				
+			i=p,j=q-1;     
+					top(j,i);
+			
+			i=p+1,j=q+1;		
+					rightbotom(j,i);
+			
+			i=p-1,j=q+1;	
+					leftbotom(j,i);	
+			
+			i=p+1,j=q-1;		
+					righttop(j,i);			
+			
+			i=p-1,j=q-1;		
+					lefttop(j,i);
+
+		return true;
+	}
+	else if(s==15)
+	{
+		
+		
+		 j=kj,i=ki;
+		moov_turn=15;//--------------------------------yellow ele2 selected so after walking only quencan[]=0;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+			i=ki+1;	
+					kingwalk(j,i);
+					
+			i=ki-1,j=kj;    
+					kingwalk(j,i)
+			
+			i=ki,j=kj+1;     	
+					kingwalk(j,i)	
+				
+			i=ki,j=kj-1;     
+					kingwalk(j,i)
+			i=ki+1,j=kj+1;		
+					kingwalk(j,i)
+			
+			i=ki-1,j=kj+1;	
+					kingwalk(j,i)
+			
+			i=ki+1,j=kj-1;		
+					kingwalk(j,i)			
+			
+			i=ki-1,j=kj-1;		
+					kingwalk(j,i)
+
+			
+			return true;
+	}
+	else if(s==16)
+	{
+									
+									
+						moov_turn=16;					
+						j=c2j,i=c2i;
+						document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color yellow caml 2--------------------
+							i=c2i+1,j=c2j+1;		
+								rightbotom(j,i);
+			
+						i=c2i-1,j=c2j+1;	
+								leftbotom(j,i);	
+			
+						i=c2i+1,j=c2j-1;		
+								righttop(j,i);			
+			
+						i=c2i-1,j=c2j-1;		
+								lefttop(j,i);
+							
+						
+				return true;
+	}
+	else if(s==17)
+	{
+		moov_turn=17;					
+		i=h2i,j=h2j;
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color yellow caml 2--------------------
+		
+		horsepos(j-1,i+2);
+		horsepos(j+1,i+2);
+		horsepos(j-1,i-2);
+		horsepos(j+1,i-2);
+		horsepos(j+2,i-1);
+		horsepos(j+2,i+1);
+		horsepos(j-2,i+1);
+		horsepos(j-2,i-1);
+		return true;
+	}
+	
+	else if(s==18)
+	{
+		
+			
+		 j=e2j,i=e2i;
+		moov_turn=18;//--------------------------------yellow quen selected so after walking only quencan[]=0;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+			i=e2i+1;	
+					right(j,i);
+					
+			i=e2i-1,j=e2j;    
+					left(j,i);
+			
+			i=e2i,j=e2j+1;     	
+					botom(j,i);		
+				
+			i=e2i,j=e2j-1;     
+					top(j,i);
+			
+		
+		return true;
+	}
+	
+	if(s==81)
+	{
+		
+			
+		 j=bej,i=bei;
+		moov_turn=81;//--------------------------------yellow quen selected so after walking only quencan[]=0;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+			i=bei+1;	
+					bright(j,i);
+					
+			i=bei-1,j=bej;    
+					bleft(j,i);
+			
+			i=bei,j=bej+1;     	
+					bbotom(j,i);		
+				
+			i=bei,j=bej-1;     
+					btop(j,i);
+			
+			return true;
+	}
+	else if(s==82)
+	{
+		moov_turn=82;					
+		i=bhi,j=bhj;
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color yellow caml 2--------------------
+		
+		bhorsepos(j-1,i+2);
+		bhorsepos(j+1,i+2);
+		bhorsepos(j-1,i-2);
+		bhorsepos(j+1,i-2);
+		bhorsepos(j+2,i-1);
+		bhorsepos(j+2,i+1);
+		bhorsepos(j-2,i+1);
+		bhorsepos(j-2,i-1);
+		return true;		
+	}
+	else if(s==83)
+	{
+					
+						moov_turn=83;					
+						j=bcj,i=bci;
+						document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+							i=bci+1,j=bcj+1;		
+								brightbotom(j,i);
+			
+						i=bci-1,j=bcj+1;	
+								bleftbotom(j,i);	
+			
+						i=bci+1,j=bcj-1;		
+								brighttop(j,i);			
+			
+						i=bci-1,j=bcj-1;		
+								blefttop(j,i);
+					
+				return true;
+	}
+	else if(s==84)
+	{
+		
+			
+		
+		moov_turn=84;//--------------------------------yellow quen selected so after walking only quencan[]=0;
+		j=bqj,i=bqi;
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+			i=bqi+1;	
+					bright(j,i);
+					
+			i=bqi-1,j=bqj;    
+					bleft(j,i);
+			
+			i=bqi,j=bqj+1;     	
+					bbotom(j,i);		
+				
+			i=bqi,j=bqj-1;     
+					btop(j,i);
+			
+			i=bqi+1,j=bqj+1;		
+					brightbotom(j,i);
+			
+			i=bqi-1,j=bqj+1;	
+					bleftbotom(j,i);	
+			
+			i=bqi+1,j=bqj-1;		
+					brighttop(j,i);			
+			
+			i=bqi-1,j=bqj-1;		
+					blefttop(j,i);
+
+		return true;
+	}
+	else if(s==85)
+	{
+		
+		
+		 j=bkj,i=bki;
+		moov_turn=85;//--------------------------------yellow ele2 selected so after walking only quencan[]=0;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+			i=bki+1;	
+					bkingwalk(j,i);
+					
+			i=bki-1,j=bkj;    
+					bkingwalk(j,i)
+			
+			i=bki,j=bkj+1;     	
+					bkingwalk(j,i)	
+				
+			i=bki,j=bkj-1;     
+					bkingwalk(j,i)
+			i=bki+1,j=bkj+1;		
+					bkingwalk(j,i)
+			
+			i=bki-1,j=bkj+1;	
+					bkingwalk(j,i)
+			
+			i=bki+1,j=bkj-1;		
+					bkingwalk(j,i)			
+			
+			i=bki-1,j=bkj-1;		
+					bkingwalk(j,i)
+
+			
+			return true;
+	}
+	else if(s==86)
+	{
+									
+									
+						moov_turn=86;					
+						j=bc2j,i=bc2i;
+						document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color yellow caml 2--------------------
+							i=bc2i+1,j=bc2j+1;		
+								brightbotom(j,i);
+			
+						i=bc2i-1,j=bc2j+1;	
+								bleftbotom(j,i);	
+			
+						i=bc2i+1,j=bc2j-1;		
+								brighttop(j,i);			
+			
+						i=bc2i-1,j=bc2j-1;		
+								blefttop(j,i);
+							
+						
+				return true;
+	}
+	else if(s==87)
+	{
+		moov_turn=87;					
+		i=bh2i,j=bh2j;
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color yellow caml 2--------------------
+		
+		bhorsepos(j-1,i+2);
+		bhorsepos(j+1,i+2);
+		bhorsepos(j-1,i-2);
+		bhorsepos(j+1,i-2);
+		bhorsepos(j+2,i-1);
+		bhorsepos(j+2,i+1);
+		bhorsepos(j-2,i+1);
+		bhorsepos(j-2,i-1);
+		return true;
+	}
+	else if(s==88)
+	{
+		
+			
+		 j=be2j,i=be2i;
+		moov_turn=88;//--------------------------------yellow quen selected so after walking only quencan[]=0;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+			i=be2i+1;	
+					bright(j,i);
+					
+			i=be2i-1,j=be2j;    
+					bleft(j,i);
+			
+			i=be2i,j=be2j+1;     	
+					bbotom(j,i);		
+				
+			i=be2i,j=be2j-1;     
+					btop(j,i);
+			
+		
+		return true;
+	}
+	else if(s==71)
+	{
+		
+			
+		 j=jpi,i=ipi;
+		moov_turn=71;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		bpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==72)
+	{
+		
+			
+		 j=jpi2,i=ipi2;
+		moov_turn=72;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		bpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==73)
+	{
+		
+			
+		 j=jpi3,i=ipi3;
+		moov_turn=73;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		bpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==74)
+	{
+		
+			
+		 j=jpi4,i=ipi4;
+		moov_turn=74;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		bpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==75)
+	{
+		
+			
+		 j=jpi5,i=ipi5;
+		moov_turn=75;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		bpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==76)
+	{
+		
+			
+		 j=jpi6,i=ipi6;
+		moov_turn=76;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		bpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==77)
+	{
+		
+			
+		 j=jpi7,i=ipi7;
+		moov_turn=77;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		bpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==78)
+	{
+		
+			
+		 j=jpi8,i=ipi8;
+		moov_turn=78;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		bpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==21)
+	{
+		
+			
+		 j=wjpi1,i=wipi1;
+		moov_turn=21;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		wpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==22)
+	{
+		
+			
+		 j=wjpi2,i=wipi2;
+		moov_turn=22;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		wpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==23)
+	{
+		
+			
+		 j=wjpi3,i=wipi3;
+		moov_turn=23;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		wpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==24)
+	{
+		
+			
+		 j=wjpi4,i=wipi4;
+		moov_turn=24;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		wpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==25)
+	{
+		
+			
+		 j=wjpi5,i=wipi5;
+		moov_turn=25;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		wpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==26)
+	{
+		
+			
+		 j=wjpi6,i=wipi6;
+		moov_turn=26;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		wpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==27)
+	{
+		
+			
+		 j=wjpi7,i=wipi7;
+		moov_turn=27;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		wpidal(j,i);
+			
+		
+		return true;
+	}
+	else if(s==28)
+	{
+		
+			
+		 j=wjpi8,i=wipi8;
+		moov_turn=28;
+	
+		document.getElementById(''+j+""+i).bgColor="black";	//--------------------bg color black of quen--------------------
+		wpidal(j,i);
+			
+		
+		return true;
+	}
+	
+	
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------
+function moov(a,b)
+{
+		for(z=0;z<=c;z++)
+		{
+				if(qcanwak[z]==""+a+""+b)
+				{
+					qcan=1;
+				}
+			
+		
+		}
+		if(qcan!=1)
+		{
+			alert("it cant walk there");
+			return true;
+		}
+		
+		
+	
+	if(moov_turn==11)
+	{
+						
+			document.getElementById(''+ej+""+ei).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="ELE1";
+			iskillanyblack(a,b);
+			ej=a;
+			ei=b;
+			white_at[0]=""+a+""+b;		
+																	
+	
+	}
+	else if(moov_turn==12)
+	{
+			iskillanyblack(a,b);
+			document.getElementById(''+hj+""+hi).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="HORS1";
+			
+			hj=a;
+			hi=b;
+			
+			
+
+			white_at[1]=""+a+""+b;				
+	}
+	else if(moov_turn==13)
+	{
+						iskillanyblack(a,b);
+			document.getElementById(''+cj+""+ci).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="CML1";
+			
+			cj=a;
+			ci=b;
+
+			white_at[2]=""+a+""+b;								
+	
+	}				
+	else if(moov_turn==14)
+	{
+		iskillanyblack(a,b);
+			document.getElementById(''+q+""+p).innerHTML="";
+		document.getElementById(''+a+""+b).innerHTML="QUEN";
+	
+	
+		
+			q=a;
+			p=b;
+
+			white_at[3]=""+a+""+b;
+		
+			
+	}
+	else if(moov_turn==15)
+	{
+		iskillanyblack(a,b);
+		document.getElementById(''+kj+""+ki).innerHTML="";
+		document.getElementById(''+a+""+b).innerHTML="KING";
+	
+	
+		
+			kj=a;
+			ki=b;
+		
+
+			white_at[4]=""+a+""+b;		
+		
+			
+	}
+	else if(moov_turn==16)
+	{
+			iskillanyblack(a,b);
+			document.getElementById(''+c2j+""+c2i).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="CML2";
+			
+			c2j=a;
+			c2i=b;
+			white_at[5]=""+a+""+b;				
+	}
+	else if(moov_turn==17)
+	{
+			iskillanyblack(a,b);
+			document.getElementById(''+h2j+""+h2i).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="HORS2";
+			
+			h2j=a;
+			h2i=b;
+			
+			
+
+			white_at[6]=""+a+""+b;				
+	}
+	
+	else if(moov_turn==18)
+	{
+			iskillanyblack(a,b);			
+			document.getElementById(''+e2j+""+e2i).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="ELE2";
+			
+			e2j=a;
+			e2i=b;
+			white_at[7]=""+a+""+b;								
+	
+	}
+	if(moov_turn==81)
+	{
+						iskillanywhite(a,b);
+			document.getElementById(''+bej+""+bei).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="ELE1";
+			
+			bej=a;
+			bei=b;
+			black_at[0]=""+a+""+b;
+							
+	
+	}
+	if(moov_turn==82)
+	{
+		iskillanywhite(a,b);
+			document.getElementById(''+bhj+""+bhi).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="HORS1";
+			
+			bhj=a;
+			bhi=b;
+			black_at[1]=""+a+""+b;								
+	
+	}
+	if(moov_turn==83)
+	{
+			iskillanywhite(a,b);				
+			document.getElementById(''+bcj+""+bci).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="CML1";
+			
+			bcj=a;
+			bci=b;
+			black_at[2]=""+a+""+b;								
+	
+	}
+		if(moov_turn==84)
+	{
+			iskillanywhite(a,b);
+			document.getElementById(''+bqj+""+bqi).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="QUEN";
+			
+			bqj=a;
+			bqi=b;
+			black_at[3]=""+a+""+b;								
+	
+	}
+	else if(moov_turn==85)
+	{
+		iskillanywhite(a,b);
+		document.getElementById(''+bkj+""+bki).innerHTML="";
+		document.getElementById(''+a+""+b).innerHTML="KING";
+	
+	
+		
+			bkj=a;
+			bki=b;
+		
+
+			black_at[4]=""+a+""+b;
+				
+			
+	}
+	else if(moov_turn==86)
+	{
+			iskillanywhite(a,b);
+			document.getElementById(''+bc2j+""+bc2i).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="CML2";
+			
+			bc2j=a;
+			bc2i=b;
+			black_at[5]=""+a+""+b;				
+	}
+	else if(moov_turn==87)
+	{
+			iskillanywhite(a,b);
+			document.getElementById(''+bh2j+""+bh2i).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="HORS2";
+			
+			bh2j=a;
+			bh2i=b;
+			
+			
+
+			black_at[6]=""+a+""+b;				
+	}
+	else if(moov_turn==88)
+	{
+			iskillanywhite(a,b);			
+			document.getElementById(''+be2j+""+be2i).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="ELE2";
+			
+			be2j=a;
+			be2i=b;
+			black_at[7]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==71)
+	{
+						iskillanywhite(a,b);
+			document.getElementById(''+jpi+""+ipi).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL1";
+			
+			jpi=a;
+			ipi=b;
+			black_at[8]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==72)
+	{
+						iskillanywhite(a,b);
+			document.getElementById(''+jpi2+""+ipi2).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL2";
+			
+			jpi2=a;
+			ipi2=b;
+			black_at[9]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==73)
+	{
+						iskillanywhite(a,b);
+			document.getElementById(''+jpi3+""+ipi3).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL3";
+			
+			jpi3=a;
+			ipi3=b;
+			black_at[10]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==74)
+	{
+						iskillanywhite(a,b);
+			document.getElementById(''+jpi4+""+ipi4).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL4";
+			
+			jpi4=a;
+			ipi4=b;
+			black_at[11]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==75)
+	{
+						iskillanywhite(a,b);
+			document.getElementById(''+jpi5+""+ipi5).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL5";
+			
+			jpi5=a;
+			ipi5=b;
+			black_at[12]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==76)
+	{
+						iskillanywhite(a,b);
+			document.getElementById(''+jpi6+""+ipi6).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL6";
+			
+			jpi6=a;
+			ipi6=b;
+			black_at[13]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==77)
+	{
+						iskillanywhite(a,b);
+			document.getElementById(''+jpi7+""+ipi7).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL7";
+			
+			jpi7=a;
+			ipi7=b;
+			black_at[14]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==78)
+	{
+						iskillanywhite(a,b);
+			document.getElementById(''+jpi8+""+ipi8).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL8";
+			
+			jpi8=a;
+			ipi8=b;
+			black_at[15]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==21)
+	{
+						iskillanyblack(a,b);
+			document.getElementById(''+wjpi1+""+wipi1).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL1";
+			
+			wjpi1=a;
+			wipi1=b;
+			white_at[8]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==22)
+	{
+						iskillanyblack(a,b);
+			document.getElementById(''+wjpi2+""+wipi2).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL2";
+			
+			wjpi2=a;
+			wipi2=b;
+			white_at[9]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==23)
+	{
+						iskillanyblack(a,b);
+			document.getElementById(''+wjpi3+""+wipi3).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL3";
+			
+			wjpi3=a;
+			wipi3=b;
+			white_at[10]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==24)
+	{
+						iskillanyblack(a,b);
+			document.getElementById(''+wjpi4+""+wipi4).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL4";
+			
+			wjpi4=a;
+			wipi4=b;
+			white_at[11]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==25)
+	{
+						iskillanyblack(a,b);
+			document.getElementById(''+wjpi5+""+wipi5).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL5";
+			
+			wjpi5=a;
+			wipi5=b;
+			white_at[12]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==26)
+	{
+						iskillanyblack(a,b);
+			document.getElementById(''+wjpi6+""+wipi6).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL6";
+			
+			wjpi6=a;
+			wipi6=b;
+			white_at[13]=""+a+""+b;											
+	
+	}
+	else if(moov_turn==27)
+	{
+						iskillanyblack(a,b);
+			document.getElementById(''+wjpi7+""+wipi7).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL7";
+			
+			wjpi7=a;
+			wipi7=b;
+			white_at[14]=""+a+""+b;		
+	}
+	else if(moov_turn==28)
+	{
+						iskillanyblack(a,b);
+			document.getElementById(''+wjpi8+""+wipi8).innerHTML="";
+			document.getElementById(''+a+""+b).innerHTML="SOL8";
+			
+			wjpi8=a;
+			wipi8=b;
+			white_at[15]=""+a+""+b;											
+	
+	}							
+	           
+	if(ok==1)
+	{
+		turn=1;
+	}
+	else
+	{
+		turn=0;
+	}
+	
+	//end
+	
+	for(j=1;j<=8;j++)
+	{
+		for(i=1;i<=8;i++)
+		{
+			
+			if(j==1||j==3|j==5||j==7)
+			{
+				if(i%2==0)
+				{
+						document.getElementById(''+j+""+i).bgColor="blue";
+						document.getElementById(''+j+""+i+"2").bgColor="blue";
+						
+				}
+				else
+				{
+					document.getElementById(''+j+""+i).bgColor="pink";
+					document.getElementById(''+j+""+i+"2").bgColor="pink";
+				}
+			}
+			else
+			{
+				if(i%2==0)
+				{
+						document.getElementById(''+j+""+i).bgColor="pink";
+						document.getElementById(''+j+""+i+"2").bgColor="pink";
+				}
+				else
+				{
+					document.getElementById(''+j+""+i).bgColor="blue";
+					document.getElementById(''+j+""+i+"2").bgColor="blue";
+				}
+			}
+			for(d=0;d<16;d++)
+			{
+				if(black_at[d]==""+j+""+i)
+				{
+					
+					document.getElementById(''+j+""+i).bgColor="black";
+				
+				}
+				else if(white_at[d]==""+j+""+i)
+				{
+					
+					document.getElementById(''+j+""+i).bgColor="orenge";
+				
+				}
+				
+			}
+		}
+	}
+					//set color as it is after moove of any particals...........................
+	
+	for(z=0;z<=c;z++)
+		{
+				qcanwak[z]=0;
+		}
+	qcan=0;
+	return true;
+}
+</script>
+
+<body>
+		<div id="tbl" style="color:#FFFFFF;font-weight:900">
+		
+		<table border="1" >
+		
+			<tr style="color:#CC0000">
+				<td id="wb0"><input type="button" name="1ele1" value="ELE1" onclick="return wquen(11)"/></td>
+				<td id="wb1"><input type="button" name="1hor1" value="HOR1" onclick="return wquen(12)"/></td>
+				<td id="wb2"><input type="button" name="1cam1" value="CAM1" onclick="return wquen(13)"/></td>
+				<td id="wb3"><input type="button" name="1quen" value="QUEN" onclick="return wquen(14)"/></td>
+				<td id="wb4"><input type="button" name="1king" value="KING" onclick="return wquen(15)"/></td>
+				<td id="wb5"><input type="button" name="1cam2" value="CAM2" onclick="return wquen(16)"/></td>
+				<td id="wb6"><input type="button" name="1hor2" value="HOR2" onclick="return wquen(17)"/></td>
+				<td id="wb7"><input type="button" name="1ele2" value="ELE2" onclick="return wquen(18)"/></td>
+				</tr>
+				<tr style="color:#CC0033">
+				<td id="wb8"><input type="button" name="pi12" value="SOL1" onclick="return wquen(21)"/></td>
+				<td id="wb9"><input type="button" name="pi12" value="SOL2" onclick="return wquen(22)"/></td>
+				<td id="wb10"><input type="button" name="m112" value="SOL3" onclick="return wquen(23)"/></td>
+				<td id="wb11"><input type="button" name="2en2" value="SOL4" onclick="return wquen(24)"/></td>
+				<td id="wb12"><input type="button" name="ng2" value="SOL5" onclick="return wquen(25)"/></td>
+				<td id="wb13"><input type="button" name="2m22" value="SOL6" onclick="return wquen(26)"/></td>
+				<td id="wb14"><input type="button" name="2r22" value="SOL7" onclick="return wquen(27)"/></td>
+				<td id="wb15"><input type="button" name="le22" value="SOL8" onclick="return wquen(28)"/></td>
+				</tr>
+		
+				
+				<tr>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=112>
+							<a style="color:pink" href="#" onclick="return moov(1,1)">clk</a></td></tr>
+								<tr><td id="11" width="60" height="25">ELE1</td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=122><a style="color:blue" href="#" onclick="return moov(1,2)">clk</a></td></tr>
+								<tr><td id="12" width="60" height="25" >HOR1</td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=132><a style="color:pink" href="#" onclick="return moov(1,3)">clk</a></td></tr>
+								<tr><td id="13"width="60" height="25">CML1</td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=142><a style="color:blue" href="#" onclick="return moov(1,4)">clk</a></td></tr>
+									<tr><td id="14"width="60" height="25">QUEN</td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=152><a style="color:pink" href="#" onclick="return moov(1,5)">clk</a></td></tr>
+									<tr><td id="15"width="60" height="25">KING</td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=162><a style="color:blue" href="#" onclick="return moov(1,6)">clk</a></td></tr>
+									<tr><td id="16"width="60" height="25">CML2</td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=172><a style="color:pink" href="#" onclick="return moov(1,7)">clk</a></td></tr>
+									<tr><td id="17"width="60" height="25">HOR2</td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=182><a style="color:blue" href="#" onclick="return moov(1,8)">clk</a></td></tr>
+									<tr><td id="18"width="60" height="25">ELE2</td></tr></table></td>
+				</tr>
+				
+				<tr>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=212><a style="color:blue" href="#" onclick="return moov(2,1)">clk</a></td></tr>
+										<tr><td id="21"width="60" height="25">SOL1</td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=222><a style="color:pink" href="#" onclick="return moov(2,2)">clk</a></td></tr>
+															<tr><td id="22"width="60" height="25">SOL2</td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=232><a style="color:blue" href="#" onclick="return moov(2,3)">clk</a></td></tr>
+												<tr><td id="23"width="60" height="25">SOL3</td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=242><a style="color:pink" href="#" onclick="return moov(2,4)">clk</a></td></tr>
+										<tr><td id="24"width="60" height="25">SOL4</td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=252><a style="color:blue" href="#" onclick="return moov(2,5)">clk</a></td></tr>
+										<tr><td id="25"width="60" height="25">SOL5</td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=262><a style="color:pink" href="#" onclick="return moov(2,6)">clk</a></td></tr>
+										<tr><td id="26"width="60" height="25">SOL6</td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=272><a style="color:blue" href="#" onclick="return moov(2,7)">clk</a></td></tr>
+										<tr><td id="27" width="60" height="25">SOL7</td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=282><a style="color:pink" href="#" onclick="return moov(2,8)">clk</a></td></tr>
+										<tr><td id="28"width="60" height="25">SOL8</td></tr></table></td>
+				</tr>
+				
+				<tr>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=312><a style="color:pink" href="#" onclick="return moov(3,1)">clk</a></td></tr>
+								<tr><td id="31"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=322><a style="color:blue" href="#" onclick="return moov(3,2)">clk</a></td></tr>
+								<tr><td id="32"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=332><a style="color:pink" href="#" onclick="return moov(3,3)">clk</a></td></tr>
+								<tr><td id="33" width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=342><a style="color:blue" href="#" onclick="return moov(3,4)">clk</a></td></tr>
+								<tr><td id="34"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=352><a style="color:pink" href="#" onclick="return moov(3,5)">clk</a></td></tr>
+								<tr><td id="35"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=362><a style="color:blue" href="#" onclick="return moov(3,6)">clk</a></td></tr>
+								<tr><td id="36"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=372><a style="color:pink" href="#" onclick="return moov(3,7)">clk</a></td></tr>
+								<tr><td id="37"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=382><a style="color:blue" href="#" onclick="return moov(3,8)">clk</a></td></tr>
+								<tr><td id="38"width="60" height="25"></td></tr></table></td>
+				</tr>
+				
+				<tr>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=412><a style="color:blue" href="#" onclick="return moov(4,1)">clk</a></td></tr>
+								<tr><td id="41"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=422><a style="color:pink" href="#" onclick="return moov(4,2)">clk</a></td></tr>
+									<tr><td id="42"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=432><a style="color:blue" href="#" onclick="return moov(4,3)">clk</a></td></tr>
+									<tr><td id="43"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=442><a style="color:pink" href="#" onclick="return moov(4,4)">clk</a></td></tr>
+									<tr><td id="44"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=452><a style="color:blue" href="#" onclick="return moov(4,5)">clk</a></td></tr>
+									<tr><td id="45"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=462><a style="color:pink" href="#" onclick="return moov(4,6)">clk</a></td></tr>
+									<tr><td id="46"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=472><a style="color:blue" href="#" onclick="return moov(4,7)">clk</a></td></tr>
+										<tr><td id="47"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=482><a style="color:pink" href="#" onclick="return moov(4,8)">clk</a></td></tr>
+									<tr><td id="48"width="60" height="25"></td></tr></table></td>
+				</tr>
+				
+				<tr>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=512><a style="color:pink" href="#" onclick="return moov(5,1)">clk</a></td></tr>
+							<tr><td id="51"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=522><a style="color:blue" href="#" onclick="return moov(5,2)">clk</a></td></tr>
+								<tr><td id="52"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=532><a style="color:pink" href="#" onclick="return moov(5,3)">clk</a></td></tr>
+								<tr><td id="53"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=542><a style="color:blue" href="#" onclick="return moov(5,4)">clk</a></td></tr>
+								<tr><td id="54"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=552><a style="color:pink" href="#" onclick="return moov(5,5)">clk</a></td></tr>
+								<tr><td id="55"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=562><a style="color:blue" href="#" onclick="return moov(5,6)">clk</a></td></tr>
+								<tr><td id="56"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=572><a style="color:pink" href="#" onclick="return moov(5,7)">clk</a></td></tr>
+								<tr><td id="57"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=582><a style="color:blue" href="#" onclick="return moov(5,8)">clk</a></td></tr>
+								<tr><td id="58"width="60" height="25"></td></tr></table></td>
+				</tr>
+				
+				<tr>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=612><a style="color:blue" href="#" onclick="return moov(6,1)">clk</a></td></tr>
+								<tr><td id="61"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=622><a style="color:pink" href="#" onclick="return moov(6,2)">clk</a></td></tr>
+								<tr><td id="62"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=632><a style="color:blue" href="#" onclick="return moov(6,3)">clk</a></td></tr>
+									<tr><td id="63"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=642><a style="color:pink" href="#" onclick="return moov(6,4)">clk</a></td></tr>
+									<tr><td id="64"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=652><a style="color:blue" href="#" onclick="return moov(6,5)">clk</a></td></tr>
+									<tr><td id="65"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=662><a style="color:pink" href="#" onclick="return moov(6,6)">clk</a></td></tr>
+									<tr><td id="66"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="blue"><table><tr><td id=672><a style="color:blue" href="#" onclick="return moov(6,7)">clk</a></td></tr>
+									<tr><td id="67"width="60" height="25"></td></tr></table></td>
+				<td height="60" width="60" bgcolor="pink"><table><tr><td id=682><a style="color:pink" href="#" onclick="return moov(6,8)">clk</a></td></tr>
+									<tr><td id="68"width="60" height="25"></td></tr></table></td>
+				</tr>
+				
+			<tr>
+			<td height="60" width="60" bgcolor="pink"><table><tr><td id=712><a style="color:pink" href="#" onclick="return moov(7,1)">clk</a></td></tr>
+							<tr><td id="71"width="60" height="25">SOL1</td></tr></table></td>
+			<td height="60" width="60" bgcolor="blue"><table><tr><td id=722><a style="color:blue" href="#" onclick="return moov(7,2)">clk</a></td></tr>
+							<tr><td id="72"width="60" height="25">SOL2</td></tr></table></td>
+			<td height="60" width="60" bgcolor="pink"><table><tr><td id=732><a style="color:pink" href="#" onclick="return moov(7,3)">clk</a></td></tr>
+							<tr><td id="73"width="60" height="25">SOL1</td></tr></table></td>
+			<td height="60" width="60" bgcolor="blue"><table><tr><td id=742><a style="color:blue" href="#" onclick="return moov(7,4)">clk</a></td></tr>
+							<tr><td id="74"width="60" height="25">SOL4</td></tr></table></td>
+			<td height="60" width="60" bgcolor="pink"><table><tr><td id=752><a style="color:pink" href="#" onclick="return moov(7,5)">clk</a></td></tr>
+							<tr><td id="75"width="60" height="25">SOL5</td></tr></table></td>
+			<td height="60" width="60" bgcolor="blue"><table><tr><td id=762><a style="color:blue" href="#" onclick="return moov(7,6)">clk</a></td></tr>
+							<tr><td id="76"width="60" height="25">SOL6</td></tr></table></td>
+			<td height="60" width="60" bgcolor="pink"><table><tr><td id=772><a style="color:pink" href="#" onclick="return moov(7,7)">clk</a></td></tr>
+							<tr><td id="77"width="60" height="25">SOL7</td></tr></table></td>
+			<td height="60" width="60" bgcolor="blue"><table><tr><td id=782><a style="color:blue" href="#" onclick="return moov(7,8)">clk</a></td></tr>
+							<tr><td id="78"width="60" height="25">SOL8</td></tr></table></td>
+				</tr>
+				
+				<tr>
+			<td height="60" width="60" bgcolor="blue"><table><tr><td id=812><a style="color:blue" href="#" onclick="return moov(8,1)">clk</a></td></tr>
+						<tr><td id="81"width="60" height="25">ELE1</td></tr></table></td>
+			<td height="60" width="60" bgcolor="pink"><table><tr><td id=822><a style="color:pink" href="#" onclick="return moov(8,2)">clk</a></td></tr>
+						<tr><td id="82"width="60" height="25">HOR1</td></tr></table></td>
+			<td height="60" width="60" bgcolor="blue"> <table><tr><td id=832><a style="color:blue" href="#" onclick="return moov(8,3)">clk</a></td></tr>
+						<tr><td id="83"width="60" height="25">CAM1</td></tr></table></td>
+			<td height="60" width="60" bgcolor="pink"><table><tr><td id=842><a style="color:pink" href="#" onclick="return moov(8,4)">clk</a></td></tr>
+						<tr><td id="84"width="60" height="25">QUEN</td></tr></table></td>
+			<td height="60" width="60" bgcolor="blue"><table><tr><td id=852><a style="color:blue" href="#" onclick="return moov(8,5)">clk</a></td></tr>
+						<tr><td id="85"width="60" height="25">KING</td></tr></table></td>
+			<td height="60" width="60" bgcolor="pink"><table><tr><td id=862><a style="color:pink" href="#" onclick="return moov(8,6)">clk</a></td></tr>
+						<tr><td id="86"width="60" height="25">CAM2</td></tr></table></td>
+			<td height="60" width="60" bgcolor="blue"><table><tr><td id=872><a style="color:blue" href="#" onclick="return moov(8,7)">clk</a></td></tr>
+						<tr><td id="87"width="60" height="25">HOR2</td></tr></table></td>
+			<td height="60" width="60" bgcolor="pink"><table><tr><td id=882><a style="color:pink" href="#" onclick="return moov(8,8)">clk</a></td></tr>
+						<tr><td id="88"width="60" height="25">ELE1</td></tr></table></td>
+				</tr>
+				<tr style="color:#CC0033">
+				<td id="bb8"><input type="button" name="pi1" value="SOL1" onclick="return wquen(71)"/></td>
+				<td id="bb9"><input type="button" name="pi1" value="SOL2" onclick="return wquen(72)"/></td>
+				<td id="bb10"><input type="button" name="m11" value="SOL3" onclick="return wquen(73)"/></td>
+				<td id="bb11"><input type="button" name="2en" value="SOL4" onclick="return wquen(74)"/></td>
+				<td id="bb12"><input type="button" name="ng" value="SOL5" onclick="return wquen(75)"/></td>
+				<td id="bb13"><input type="button" name="2m2" value="SOL6" onclick="return wquen(76)"/></td>
+				<td id="bb14"><input type="button" name="2r2" value="SOL7" onclick="return wquen(77)"/></td>
+				<td id="bb15"><input type="button" name="le2" value="SOL8" onclick="return wquen(78)"/></td>
+				</tr>
+				<tr style="color:#CC0033">
+				<td id="bb0"><input type="button" name="2ele1" value="ELE1" onclick="return wquen(81)"/></td>
+				<td id="bb1"><input type="button" name="2hor1" value="HOR1" onclick="return wquen(82)"/></td>
+				<td id="bb2"><input type="button" name="1cam1" value="CAM1" onclick="return wquen(83)"/></td>
+				<td id="bb3"><input type="button" name="2quen" value="QUEN" onclick="return wquen(84)"/></td>
+				<td id="bb4"><input type="button" name="2king" value="KING" onclick="return wquen(85)"/></td>
+				<td id="bb5"><input type="button" name="2cam2" value="CAM2" onclick="return wquen(86)"/></td>
+				<td id="bb6"><input type="button" name="2hor2" value="HOR2" onclick="return wquen(87)"/></td>
+				<td id="bb7"><input type="button" name="2ele2" value="ELE2" onclick="return wquen(88)"/></td>
+				</tr>
+				
+				</table>
+				
+				
+		
+		</div>
+</body>
+</html>
