@@ -9,8 +9,7 @@
 
  ## Overview 
 
- - Url_1: http://13.234.224.145/Jignesh-demo/Practice2012-Javascript-Chess-Game/
- - Url_2: http://jc-deloper.com/Jignesh-demo/Practice2012-Javascript-Chess-Game/
+ - Url: http://jcwebdeveloper.com/Jignesh-demo/Practice2012-Javascript-Chess-Game/
 
  - This is code just to exploring about my coding interest
  - I have develop such 2500 line code before begining of my carear in IT 
